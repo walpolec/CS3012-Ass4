@@ -46,3 +46,12 @@ myData$following
 #Number of public repositories
 myData$public_repos
   
+myFollowers = fromJSON("https://api.github.com/users/walpolec/followers")
+# Usernames of followers
+myFollowers$login
+# Number of people following me
+length(myFollowers$login)
+# Type of follower
+myFollowers$type
+# Followers starred_url
+myFollowers$starred_url

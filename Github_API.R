@@ -65,3 +65,11 @@ length(usersImFollowing$login)
 usersImFollowing$type
 # Followers url
 usersImFollowing$url
+
+repos = fromJSON("https://api.github.com/users/walpolec/repos")
+# Names of repositories
+repos$name
+# Dates repositories created at
+repos$created_at
+# Language of repository
+repos$language

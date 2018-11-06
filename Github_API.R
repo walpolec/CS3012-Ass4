@@ -53,5 +53,5 @@ myFollowers$login
 length(myFollowers$login)
 # Type of follower
 myFollowers$type
-# Followers starred_url
-myFollowers$starred_url
+# Followers url
+myFollowers$url

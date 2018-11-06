@@ -55,3 +55,13 @@ length(myFollowers$login)
 myFollowers$type
 # Followers url
 myFollowers$url
+
+usersImFollowing = fromJSON("https://api.github.com/users/walpolec/following") 
+# Usernames of users I follow 
+usersImFollowing$login
+# Number of users I follow
+length(usersImFollowing$login)
+# Type of follower
+usersImFollowing$type
+# Followers url
+usersImFollowing$url

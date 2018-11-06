@@ -37,4 +37,12 @@ gitDF[gitDF$full_name == "jtleek/datasharing", "created_at"]
 # https://towardsdatascience.com/accessing-data-from-github-api-using-r-3633fb62cb08
 
 # -----------------------------------------------------------------------------------
+
+myData = fromJSON("https://api.github.com/users/walpolec")
+# Number of followers
+myData$followers
+# Number following
+myData$following
+#Number of public repositories
+myData$public_repos
   

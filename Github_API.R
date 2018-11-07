@@ -73,3 +73,40 @@ repos$name
 repos$created_at
 # Language of repository
 repos$language
+
+#Can be replicated for any other user - this user taken from myFollowers$url
+myData2 = fromJSON("https://api.github.com/users/endam1234")
+# Number of followers
+myData2$followers
+# Number following
+myData2$following
+#Number of public repositories
+myData2$public_repos
+
+myFollowers2 = fromJSON("https://api.github.com/users/endam1234/followers")
+# Usernames of followers
+myFollowers2$login
+# Number of people following me
+length(myFollowers2$login)
+# Type of follower
+myFollowers2$type
+# Followers url
+myFollowers2$url
+
+usersImFollowing2 = fromJSON("https://api.github.com/users/endam1234/following") 
+# Usernames of users I follow 
+usersImFollowing2$login
+# Number of users I follow
+length(usersImFollowing2$login)
+# Type of follower
+usersImFollowing2$type
+# Followers url
+usersImFollowing2$url
+
+repos2 = fromJSON("https://api.github.com/users/endam1234/repos")
+# Names of repositories
+repos2$name
+# Dates repositories created at
+repos2$created_at
+# Language of repository
+repos2$language

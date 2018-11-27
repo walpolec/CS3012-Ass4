@@ -1,10 +1,12 @@
 install.packages("jsonlite")
 install.packages("httpuv")
 install.packages("httr")
+install.packages("plotly")
 
 library(jsonlite)
 library(httpuv)
 library(httr)
+library(plotly)
 
 # Can be github, linkedin etc depending on application
 oauth_endpoints("github")
@@ -110,3 +112,7 @@ repos2$name
 repos2$created_at
 # Language of repository
 repos2$language
+
+#Link R to plotly. This creates online interactive graphs based on the d3js library
+Sys.setenv("plotly_username"="")
+Sys.setenv("plotly_api_key"="")

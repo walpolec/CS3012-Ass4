@@ -3,10 +3,11 @@ install.packages("httpuv")
 install.packages("httr")
 install.packages("plotly")
 
+library(plotly)
 library(jsonlite)
 library(httpuv)
 library(httr)
-library(plotly)
+require(devtools)
 
 # Can be github, linkedin etc depending on application
 oauth_endpoints("github")
@@ -113,6 +114,74 @@ repos2$created_at
 # Language of repository
 repos2$language
 
+#Access User 'acadavid' Following to get list of users
+acadavidData = GET("https://api.github.com/users/acadavid/following", gtoken)
+# Extract content from acadavid
+acadavidDataContent = content(acadavidData)
+# Put content in dataframe
+acadavidFollowingDataFrame = jsonlite::fromJSON(jsonlite::toJSON(acadavidDataContent))
+# Subset dataframe
+acadavidFollowingDataFrame$login
+# Retrieve list usernames
+id = acadavidFollowingDataFrame$login
+user_ids = c(id)
+# Create empty vector and data.frame
+allUsers = c()
+allUsersDF = data.frame(
+  username = integer(),
+  following = integer(),
+  followers = integer(),
+  repos = integer(),
+  dateCreated = integer()
+)
+# Loop through usernames and find users to add to list
+for(i in 1:length(user_ids))
+{
+  #Retrieve list of individual users 
+  followingURL = paste("https://api.github.com/users/", user_ids[i], "/following", sep = "")
+  following = GET(followingURL, gtoken)
+  followingContent = content(following)
+  #Ignore if they've 0 followers
+  if(length(followingContent) == 0)
+  {
+    next
+  }
+  followingDF = jsonlite::fromJSON(jsonlite::toJSON(followingContent))
+  followingLogin = followingDF$login
+  #Loop through 'following' users
+  for (j in 1:length(followingLogin))
+  {
+    #Check that user not already in list of users
+    if (is.element(followingLogin[j], allUsers) == FALSE)
+    {
+      #Add user to list of users
+      allUsers[length(allUsers) + 1] = followingLogin[j]
+      #Retrieve data on each user
+      followingURL2 = paste("https://api.github.com/users/", followingLogin[j], sep = "")
+      following2 = GET(followingURL2, gtoken)
+      followingContent2 = content(following2)
+      followingDF2 = jsonlite::fromJSON(jsonlite::toJSON(followingContent2))
+      #Retrieve each users following
+      followingNumber = followingDF2$following
+      #Retrieve each users followers
+      followersNumber = followingDF2$followers
+      #Retrieve each users number repositories
+      reposNumber = followingDF2$public_repos
+      #Retrieve year which each user joined Github
+      yearCreated = substr(followingDF2$created_at, start = 1, stop = 4)
+      #Add users data to a new row in dataframe
+      allUsersDF[nrow(allUsersDF) + 1, ] = c(followingLogin[j], followingNumber, followersNumber, reposNumber, yearCreated)
+    }
+    next
+  }
+  #Stop when there are more than 400 users
+  if(length(allUsers) > 400)
+  {
+    break
+  }
+  next
+}
+
 #Link R to plotly. This creates online interactive graphs based on the d3js library
-Sys.setenv("plotly_username"="")
-Sys.setenv("plotly_api_key"="")
+Sys.setenv("plotly_username"="walpolec")
+Sys.setenv("plotly_api_key"="I7l5K1eZw8nlkzX7TNYP")

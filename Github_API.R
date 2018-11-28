@@ -185,3 +185,13 @@ for(i in 1:length(user_ids))
 #Link R to plotly. This creates online interactive graphs based on the d3js library
 Sys.setenv("plotly_username"="walpolec")
 Sys.setenv("plotly_api_key"="I7l5K1eZw8nlkzX7TNYP")
+
+#Produce scatter plot of Following vs Followers
+plot1 = plot_ly(data = allUsersDF, x = ~following, y = ~followers, text = ~paste("Following: ", following, 
+                                                                                  "<br>Followers: ", followers))
+plot1
+#Upload the plot to Plotly
+Sys.setenv("plotly_username" = "walpolec")
+Sys.setenv("plotly_api_key" = "I7l5K1eZw8nlkzX7TNYP")
+api_create(plot1, filename = "Following vs Followers")
+#PLOTLY LINK: https://plot.ly/~walpolec/1/#/

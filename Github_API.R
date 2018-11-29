@@ -195,3 +195,12 @@ Sys.setenv("plotly_username" = "walpolec")
 Sys.setenv("plotly_api_key" = "I7l5K1eZw8nlkzX7TNYP")
 api_create(plot1, filename = "Following vs Followers")
 #PLOTLY LINK: https://plot.ly/~walpolec/1/#/
+
+plot2 = plot_ly(data = allUsersDF, x = ~repos, y = ~followers, text = ~paste("Followers: ", followers,
+                                                                             "<br>Repositories: ", repos,
+                                                                             "<br>Date Created:", dateCreated), color = ~dateCreated)
+plot2
+#Upload the plot to Plotly
+Sys.setenv("plotly_username" = "walpolec")
+Sys.setenv("plotly_api_key" = "I7l5K1eZw8nlkzX7TNYP")
+api_create(plot2, filename = "Followers vs Repositories by Date")

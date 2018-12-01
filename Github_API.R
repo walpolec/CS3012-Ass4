@@ -246,5 +246,14 @@ for (i in 1:length(allUsers))
 
 #Save top 15 languages in data fram
 allLanguagesTable = sort(table(languages), increasing=TRUE)
-top15LanguagesTable = LanguageTable[(length(LanguageTable)-14):length(LanguageTable)]
+top15LanguagesTable = aaLanguagesTable[(length(allLanguagesTable)-14):length(allLanguagesTable)]
 LanguageDF = as.data.frame(top15LanguagesTable)
+
+plot4 = plot_ly(data = LanguageDF, x = LanguageDF$languages, y = LanguageDF$Freq,  type = "bar")
+plot4
+
+#Upload the plot to Plotly
+Sys.setenv("plotly_username" = "walpolec")
+Sys.setenv("plotly_api_key" = "I7l5K1eZw8nlkzX7TNYP")
+api_create(plot4, filename = "15 Most Popular Languages")
+#PLOTLY LINK: https://plot.ly/~walpolec/7/#/
